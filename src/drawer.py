@@ -1,3 +1,6 @@
+from colored import fore, style
+
+
 class Drawer(object):
     def __init__(self):
         self.rows = 3
@@ -30,6 +33,25 @@ class Drawer(object):
         else:
             value = "    " + value
 
+        if label == "A":
+            block = "{}█{}".format(
+                fore.RED,
+                style.RESET
+            )
+        elif label == "B":
+            block = "{}█{}".format(
+                fore.YELLOW,
+                style.RESET
+            )
+        elif label == "C":
+            block = "{}█{}".format(
+                fore.CYAN,
+                style.RESET
+            )
+        else:
+            block = "█"
+
+        value = value.replace("█", block)
         print(value)
 
     def __print_delimiter(self, direction):

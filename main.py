@@ -41,10 +41,11 @@ def main():
     drawer = Drawer()
     puzzler = Puzzler()
 
-    row_data = puzzler.get_row_data_from_options()
+    row_data = puzzler.get_row_data()
+    row_data_sample = puzzler.get_sample()
 
     drawer.draw_div("Sample")
-    drawer.draw(row_data=row_data)
+    drawer.draw(row_data=row_data_sample)
 
     drawer.draw_div("Options")
     drawer.draw_puzzle_option(puzzler.A, "A")

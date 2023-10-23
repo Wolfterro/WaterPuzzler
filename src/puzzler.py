@@ -1,3 +1,6 @@
+import random
+
+
 class Puzzler(object):
     TOP = 0
     MIDDLE = 1
@@ -10,7 +13,7 @@ class Puzzler(object):
 
         super(Puzzler, self).__init__()
 
-    def get_row_data_from_options(self):
+    def get_row_data(self, sample=None):
         row_data = [
             # Top
             {},
@@ -20,7 +23,11 @@ class Puzzler(object):
             {},
         ]
         for x in range(1, 8 + 1):
-            data = [self.A[x - 1], self.B[x - 1], self.C[x - 1]]
+            if sample:
+                data = [sample[self.TOP][x - 1], sample[self.MIDDLE][x - 1], sample[self.BOTTOM][x - 1]]
+            else:
+                data = [self.A[x - 1], self.B[x - 1], self.C[x - 1]]
+
             data.sort()
             row_index = x * 2
 
@@ -30,10 +37,39 @@ class Puzzler(object):
 
         return row_data
 
-    # "Private" Methods
-    # -----------------
+    def get_sample(self):
+        sample = self.__shufle_sample_options()
+        row_data = self.get_row_data(sample=sample)
+        return row_data
+
     def shift_left(self, puzzle_option):
         puzzle_option.append(puzzle_option.pop(0))
 
     def shift_right(self, puzzle_option):
         puzzle_option.insert(0, puzzle_option.pop(-1))
+
+    def get_seed(self, shift_seed=False):
+        if shift_seed:
+            return random.choice(range(0, 2))
+
+        return random.choice(range(0, 99))
+
+    # "Private" Methods
+    # -----------------
+    def __shufle_sample_options(self):
+        sample_A = self.A.copy()
+        sample_B = self.B.copy()
+        sample_C = self.C.copy()
+
+        for sample in [sample_A, sample_B, sample_C]:
+            seed = self.get_seed()
+            shift_dir = self.get_seed(shift_seed=True)
+
+            for rotation in range(seed):
+                if shift_dir % 2 == 0:
+                    self.shift_right(puzzle_option=sample)
+                    continue
+
+                self.shift_left(puzzle_option=sample)
+
+        return [sample_A, sample_B, sample_C]
