@@ -13,10 +13,13 @@ class Drawer(object):
         self.__print_delimiter("down")
 
     def draw_puzzle_option(self, puzzle_option, label):
-        self.__print_delimiter(direction="up", include_label=True)
+        self.__print_delimiter(direction="up")
         self.__print_line(line=self.__get_current_line(row_data=puzzle_option), label=label)
-        self.__print_delimiter(direction="down", include_label=True)
+        self.__print_delimiter(direction="down")
 
+    def draw_div(self, text):
+        value = "    " + "—————— {} ".format(text) + "—" * (((self.columns * 4) + 4) - len(text))
+        print(value)
 
     # "Private" Methods
     # -----------------
@@ -29,7 +32,7 @@ class Drawer(object):
 
         print(value)
 
-    def __print_delimiter(self, direction, include_label=False):
+    def __print_delimiter(self, direction):
         delimiter = "_" if direction == "up" else "‾"
         value = delimiter * ((self.columns * 5) + 4)
         value = "    " + value
