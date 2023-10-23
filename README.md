@@ -1,7 +1,7 @@
 # Water Puzzler
 The infamous water puzzle from Resident Evil 3 now available in your terminal!
 
-<img src="https://github.com/Wolfterro/WaterPuzzler/blob/main/docs/screenshot-alpha01.png">
+<img src="https://github.com/Wolfterro/WaterPuzzler/blob/main/docs/screenshot-alpha02.png">
 
 **This is a WIP project** and it may take some time to finish it.
 
