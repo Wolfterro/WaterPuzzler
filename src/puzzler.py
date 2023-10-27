@@ -54,6 +54,13 @@ class Puzzler(object):
 
         return random.choice(range(0, 99))
 
+    def compare(self, row_data, sample):
+        top = row_data[self.TOP] == sample[self.TOP]
+        middle = row_data[self.MIDDLE] == sample[self.MIDDLE]
+        bottom = row_data[self.BOTTOM] == sample[self.BOTTOM]
+
+        return top and middle and bottom
+
     # "Private" Methods
     # -----------------
     def __shufle_sample_options(self):

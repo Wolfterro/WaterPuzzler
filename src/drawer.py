@@ -24,6 +24,19 @@ class Drawer(object):
         value = "    " + "—————— {} ".format(text) + "—" * (((self.columns * 4) + 4) - len(text))
         print(value)
 
+    def draw_lights(self, cleared=False):
+        red_light = "{}◉{}".format(
+            fore.RED,
+            style.RESET
+        )
+        green_light = "{}◉{}".format(
+            fore.GREEN,
+            style.RESET
+        )
+        print("{}".format(red_light if not cleared else "○"))
+        print("{}".format(green_light if cleared else "○"))
+        print()
+
     # "Private" Methods
     # -----------------
     def __print_line(self, line, label=None):
