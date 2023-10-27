@@ -23,28 +23,22 @@ class Interactor(object):
         self.get_wave_range_selection()
 
     def get_wave_range_selection(self):
-        print("Which wave range will you adjust?")
-        print("[A] - Wave A")
-        print("[B] - Wave B")
-        print("[C] - Wave C")
-        print("[Q] - Quit")
+        self.drawer.draw_selection_choices()
 
         wave = click.getchar()
         if wave.upper() in ["A", "B", "C"]:
             self.__redraw_screen()
+            self.__play_sound(sound_type="select")
             self.interact_with_wave(wave=wave)
         elif wave.upper() == "Q":
+            self.__play_sound(sound_type="back")
             exit(0)
         else:
             self.__redraw_screen()
             self.get_wave_range_selection()
 
     def interact_with_wave(self, wave):
-        print("Move to which direction?")
-        print("[L] - Left")
-        print("[R] - Right")
-        print("[C] - Check")
-        print("[Q] - Return")
+        self.drawer.draw_interaction_choices()
 
         direction = click.getchar()
         if direction.upper() in ["L", "R"]:
@@ -52,6 +46,7 @@ class Interactor(object):
         elif direction.upper() == "C":
             self.__compare()
         elif direction.upper() == "Q":
+            self.__play_sound(sound_type="back")
             self.__redraw_screen()
             self.get_wave_range_selection()
         else:
@@ -93,6 +88,7 @@ class Interactor(object):
         self.__redraw_screen()
 
         if self.puzzler.compare(row_data=self.row_data, sample=self.sample):
+            self.__play_sound(sound_type="clear")
             self.__redraw_screen(cleared=True)
             exit(0)
         else:

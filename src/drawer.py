@@ -37,6 +37,20 @@ class Drawer(object):
         print("{}".format(green_light if cleared else "○"))
         print()
 
+    def draw_selection_choices(self):
+        print("Which wave range will you adjust?")
+        print("[A] - Wave A")
+        print("[B] - Wave B")
+        print("[C] - Wave C")
+        print("[Q] - Quit")
+
+    def draw_interaction_choices(self):
+        print("Move to which direction?")
+        print("[L] - Left")
+        print("[R] - Right")
+        print("[C] - Check")
+        print("[Q] - Return")
+
     # "Private" Methods
     # -----------------
     def __print_line(self, line, label=None):
