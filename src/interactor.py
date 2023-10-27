@@ -1,4 +1,5 @@
 import os
+import time
 
 import pygame
 import click
@@ -88,8 +89,9 @@ class Interactor(object):
         self.__redraw_screen()
 
         if self.puzzler.compare(row_data=self.row_data, sample=self.sample):
-            self.__play_sound(sound_type="clear")
             self.__redraw_screen(cleared=True)
+            self.__play_sound(sound_type="clear")
+            time.sleep(2)
             exit(0)
         else:
             self.get_wave_range_selection()
