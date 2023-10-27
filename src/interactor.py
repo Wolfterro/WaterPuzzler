@@ -10,17 +10,13 @@ from src.puzzler import Puzzler
 class Interactor(object):
     def __init__(self):
         pygame.init()
+        self.__load_sounds()
 
         self.drawer = Drawer()
         self.puzzler = Puzzler()
 
         self.row_data = self.puzzler.get_row_data()
         self.sample = self.puzzler.get_sample()
-
-        try:
-            self.crank_sound = pygame.mixer.Sound("assets/crank.wav")
-        except Exception:
-            self.crank_sound = None
 
     def start(self):
         self.__redraw_screen()
@@ -66,10 +62,10 @@ class Interactor(object):
         wave_option = getattr(self.puzzler, wave.upper())
 
         if direction.upper() == "L":
-            self.__play_crank_sound()
+            self.__play_sound(sound_type="crank")
             self.puzzler.shift_left(puzzle_option=wave_option)
         else:
-            self.__play_crank_sound()
+            self.__play_sound(sound_type="crank")
             self.puzzler.shift_right(puzzle_option=wave_option)
 
         self.__redraw_screen()
@@ -102,7 +98,16 @@ class Interactor(object):
         else:
             self.get_wave_range_selection()
 
-    def __play_crank_sound(self):
-        if self.crank_sound:
-            pygame.mixer.Sound.play(self.crank_sound)
-            pygame.mixer.music.stop()
+    def __load_sounds(self):
+        for sound_type in ["crank", "select", "back", "clear"]:
+            try:
+                sound = pygame.mixer.Sound("assets/{}.wav".format(sound_type))
+            except:
+                sound = None
+
+            setattr(self, "{}_sound".format(sound_type), sound)
+
+    def __play_sound(self, sound_type):
+        sound = getattr(self, "{}_sound".format(sound_type), None)
+        if sound:
+            pygame.mixer.Sound.play(sound)
